@@ -22,8 +22,11 @@ app.use(express.static("public"));
 var MONGODB_URI=process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI);
 
-//GET route for scraping my favorite news sites
-app.get("/scrape", function(req, res){
+app.get("/", function(req, res){res.render("index",{});});
+
+//GET route for scraping my favorite retro games sites
+app.get("/scrape", function(req, res)
+{
     axios.get("http://indieretronews.com/").then(function(response){
         var $=cheerio.load(response.data);
         $("h3").each(function(i, element){
@@ -31,27 +34,40 @@ app.get("/scrape", function(req, res){
             result.title=$(this).children("a").text();
             result.link=$(this).children("a").attr("href");
             db.Article.create(result)
-                .then(function(dbArticle){
-                    console.log(dbArticle);
-                }).catch(function(err){
-                    console.log(err);
-                });
+            .then(function(dbArticle){
+                console.log(dbArticle);
+            }).catch(function(err){
+                console.log(err);
+            });
+            console.log("Scrape Complete");
+            res.redirect("/");
         });
-        res.send("Scrape Complete");
-    });
+    });  
 });
+
+//    axios.get("http://retrorgb.com/").then(function(response){
+//        var $=cheerio.load(response.data);
+//        $("h2").each(function(i, element){
+//            if($(this).children("a").text()!="RetroRGB")
+//            {
+//                var result={};
+//                result.title=$(this).children("a").text();
+//                result.link=$(this).children("a").attr("href");
+//            }
+//        });        
+//    });
 
 //GET route for grabbing all articles
 app.get("/articles", function(req, res){
     db.Article.find({})
         .then(function(dbArticle){
-            res.json(dbArticle);
+            res.json({dbArticle});
         }).catch(function(err) {
             res.json(err);
         });
 });
 
-//GET route for grabbing a specific article
+//GET route for grabbing a specific article's associated note
 app.get("/articles/:id", function(req, res){
     db.Article.findOne({_id: req.params.id}).populate("note")
         .then(function(dbArticle){

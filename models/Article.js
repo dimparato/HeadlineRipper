@@ -1,4 +1,5 @@
 var mongoose=require("mongoose");
+require("mongoose-type-url");
 
 var Schema=mongoose.Schema;
 
@@ -8,7 +9,7 @@ var ArticleSchema=new Schema({
         required:true
     },
     link:{
-        type:String,
+        type: mongoose.SchemaTypes.Url,
         required:true
     },
     note:{

@@ -8,39 +8,43 @@
 			*{font-family:"Press Start 2P", cursive;}
 			body{
 				background-image:"3px-tile.png";
-				background-color:#F2F6D0;
+				background-color: blue;
 			}
-      		#wrapper{
-        		width:960px;
-        		margin-left:auto;
-        		margin-right:auto;
-        		padding-top:5%;
+			#wrapper {
+     		    width: 960px;
+ 		        margin-left: auto;
+ 		        margin-right: auto;
+ 		        padding-top: 5%;
+		    }
+		    #articles {
+        		display: inline-block;
+        		overflow: auto;
+        		width: 60%;
+        		height: 700px;
       		}
-      		#articles{
-        		display:inline-block;
-        		overflow:auto;
-        		width:60%;
-        		height:700px;
+      		#notes {
+        		float: right;
+        		width: 30%;
+     	 	}
+      		textarea, input {
+        		display: block;
+        		width: 100%;
+        		background-color: #FCF5C7;
       		}
-      		#notes{
-        		float:right;
-        		width:30%;
+      		input {
+        		height: 36px;
+        		font-size: 24px;
       		}
-      		textarea, input{
-        		display:block;
-        		width:100%;
-        		background-color:#FCF5C7;
+      		textarea {
+        		height: 200px;
+        		font-size: 18px;
       		}
-      		input{
-        		height:36px;
-        		font-size:24px;
-      		}
-      		textarea{
-        		height:200px;
-        		font-size:18px;
-     		}
+			p:hover {
+  				background-color: rgb(255, 0, 0);
+			}
 		</style>
 		<title>Retro Gaming News Scraper!</title>
+		<a href="/scrape">SCRAPE!</a>
 	</head>
 	<body>
 		{{{body}}}
